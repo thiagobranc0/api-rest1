@@ -1,9 +1,15 @@
 import autores from "../models/Autor.js";
 
 class AutorController {
-  static listarAutores = (req, res) => {
+  static listarAutores = (_req, res) => {
     autores.find((err, autores) => {
-      res.status(200).json(autores);
+      if (err) {
+        res
+          .status(400)
+          .send({ message: `${err.message} - Erro ao localizar autores` });
+      } else {
+        res.status(200).json(autores);
+      }
     });
   };
 
